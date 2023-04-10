@@ -18,12 +18,10 @@ public:
 		else {
 			std::cout << "checking eles combos_.size() = "<< combos_.size() << std::endl;
 			for (int c = 0; c < combos_.size(); c++) {
-				std::cout << " c = " << c << std::endl;
 				if (combos_[c].size() != other.combos_[c].size()) {
 					return false;
 				}
 				for (int e = 0; e < combos_[c].size(); e++) {
-					std::cout << "combos_[c][e] = " << combos_[c][e] << "  other.combos_[c][e] = " << other.combos_[c][e] << std::endl;
 					if (combos_[c][e] != other.combos_[c][e]) {
 						return false;
 					}
@@ -127,12 +125,13 @@ class int_combinations {
 public:
 	std::vector<std::vector<int>> makeCombos(int k, std::vector<int> opts);
 	std::vector<std::vector<int>> combos(void);
-	int_combination cartCombos(int k, std::vector<int> opts);
+	std::vector<std::vector<int>> cartCombos2D(std::vector<int> a, std::vector<int> b;
 	void printCombos(void);
 	bool compare(int_combinations other);
 
 private:
 	void _makeCombos(std::vector<int> a, int reqLen, int s, int currLen, std::vector<bool> check, int l);
+	void _cartCombos2D(std::vector<int> a, std::vector<int> b);
 	int_combination combos_;
 };
 
@@ -180,6 +179,24 @@ void int_combinations::printCombos(void) {
 bool int_combinations::compare(int_combinations other) {
 	bool result;
 	result = (combos_ == other.combos_);
-	std::cout << "combinations are = " << result << std::endl;
 	return result;
 }
+
+
+std::vector<std::vector<int>> int_combinations::cartCombos2D(std::vector<int> a, std::vector<int> b) {
+	_cartCombos2D(a, b);
+	return combos();
+}
+
+void int_combinations::_cartCombos2D(std::vector<int> a, std::vector<int> b) {
+	std::vector<std::vector<int>> result;
+	std::vector<int> tmp;
+	for (int i = 0; i < a.size(); i++) {
+		tmp = {};
+		tmp.push_back(a[i]);
+		tmp.push_back(b[i]);
+		result.push_back(tmp);
+	}
+	combos_ = result;
+}
+
